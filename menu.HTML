@@ -77,6 +77,44 @@
             orderList.appendChild(listItem);
             total += price;
             document.getElementById('total').textContent = total;
+ orders.push({ item, price });
+        }
+
+        function sendOrder() {
+            const pageAccessToken = 'VOTRE_TOKEN_D_ACCES'; // Remplacez par votre token d'accès
+            const recipientId = m.me/506514019216300'; // Remplacez par l'ID du destinataire
+            const message = `Commande: ${orders.map(order => `${order.item} - ${order.price}€`).join(', ')}. Total: ${total}€`;
+
+            fetch(`https://graph.facebook.com/v10.0/me/messages?access_token=${pageAccessToken}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    messaging_type: 'RESPONSE',
+                    recipient: {
+                        id: recipientId
+                    },
+                    message: {
+                        text: message
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Error:', data.error);
+                } else {
+                    console.log('Message sent:', data);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
         }
     </script>
 </body>
