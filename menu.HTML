@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Interactif</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+        }
+        .menu-container {
+            width: 90%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .menu-item button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .menu-item button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Menu du Restaurant</h1>
+        <div class="menu-item">
+            <span>Pizza Margherita - 12€</span>
+            <button onclick="addToOrder('Pizza Margherita', 12)">Commander</button>
+        </div>
+        <div class="menu-item">
+            <span>Pâtes Carbonara - 10€</span>
+            <button onclick="addToOrder('Pâtes Carbonara', 10)">Commander</button>
+        </div>
+        <div class="menu-item">
+            <span>Salade César - 8€</span>
+            <button onclick="addToOrder('Salade César', 8)">Commander</button>
+        </div>
+        <h2>Commande</h2>
+        <ul id="order-list"></ul>
+        <p>Total : <span id="total">0</span>€</p>
+    </div>
+
+    <script>
+        let total = 0;
+        function addToOrder(item, price) {
+            const orderList = document.getElementById('order-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item} - ${price}€`;
+            orderList.appendChild(listItem);
+            total += price;
+            document.getElementById('total').textContent = total;
+        }
+    </script>
+</body>
+</html>
